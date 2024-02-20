@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+    <head>
+        <title>to-do-list_project</title>
+        <meta name='viewport'content='width=device-width,initial-scale=1,user-scalable=0'/>
+        <style>
+        
+        /*import neccessary required style sheets and icon files*/
+            @import '../styles/css_0.css';
+            @import '../icons/fa/css/all.css';
+            
+            section{width:100vw;height:auto;padding:10px;background:var(--bsc-wht);}
+            #header{height:150px;position:sticky;top:0;z-index:2}
+            body{color:var(--drk-1);font-family:cf_9}
+            #main{min-height:545;display:flex;flex-flow:column nowrap;justify-content:flex-start;align-items:center;overflow:scroll}
+            #search-bar{background:var(--brt-1);position:absolute;bottom:10px;width:94%;height:40px;border-radius:2rem;padding:5px 10px 5px 25px;font-family:inherit;}
+            
+            #label{font-size:2rem;position:absolute;top:50px;font-weight:500:color:white}
+            input::placeholder{font-size:1.15rem}
+            .item{width:100%;min-height:120px;max-height:150px;background:var(--brt-0);border-radius:0.5rem;margin:5px 0 5px 0;padding:5px 5px ;overflow:hidden;box-shadow:1px 1px 2px grey}
+            .item > p{margin:0}
+            #timestamp{color:var(--bsc-gry);font-size:0.8rem;position:absolute;bottom:0px;}
+            #add-btn{position:fixed;top:620px;right:15px;width:60px;height:60px;background:var(--brt-1);z-index:3;
+                display:flex;justify-content:center;align-items:center;border-radius:50%;box-shadow:1px 1px 2px grey;
+            }
+            #add-icn{font-size:1.5rem;color:var(--bsc-blk)}
+            
+            #notes{width:100vw;height:100vh;background:var(--bsc-wht);display:none;}
+            #notes input{display:block;margin:0 0 20px 0;width:100%;height:40px;background:var(--bsc-wht);}
+            #note-label{display:inline;font-size:1.45rem;}
+            
+            #_notes{font-size:1.75rem;margin-right:20px;transform:rotate(-90deg)}
+            input[id='wtn-title']::placeholder{font-size:1.5rem}
+            input[id='wtn-note']::placeholder{font-size:1rem}
+            #wtn-title,#wtn-note{font-family:inherit}
+            #wtn-title{font-size:1.5rem}
+            #wtn-note{background:var(--bsc-wht);font-size:1rem;overflow:hidden;}
+
+            #notes-timestamp{font-size:0.9rem;color:var(--bsc-gry);position:relative;bottom:-20px;}
+            #note-head{background:var(--brt-0);padding:20px 0 20px 0;position:sticky;top:0;z-index:3}
+            #add-note{position:absolute;right:10px;font-size:2rem;color:var(--des-grn)}
+            #main-cont{padding:0}
+            
+            #edit,#delete,.edit,.delete{position:absolute;font-size:1.25rem}
+            #edit,.edit{left:70%;color:var(--des-blu)}
+            #delete,.delete{left:92%;color:var(--des-red)}
+            
+            #no-matches{position:fixed;top:50%;left:50%;color:var(--des-red);opacity:0.75;transform:translate(-50%);display:none;}
+
+            </style>
+        <script src='../scripts/js/utils.js'></script>
+    </head>
+    <body>
+        <section id='notes'>
+            <div id='note-head'>
+            <i id='_notes'class='fa-solid fa-chevron-up'></i>
+            
+            <h3 id='note-label'>Note</h3>
+            <i id='add-note'class='fa-regular fa-square-check'></i>
+            
+                <p id='notes-timestamp'>
+                    <span id='cur-month'>january</span>
+                    <span id='cur-day'>6</span>,
+                    <span id='cur-year'>2022</span> 
+                <span id='cur-hour'>03</span>:<span id='cur-minute'>36</span>
+                </p>
+                
+
+            </div>
+                <input id='wtn-title'type='text'placeholder='Title'/>
+                <textarea rows='30'cols='45'id='wtn-note'placeholder='Note something down'></textarea>
+        </section>
+        
+        <div id='add-btn'>
+            <i id='add-icn'class='fa-regular fa-plus'></i>
+        </div>
+        
+        <section id='main-cont'>
+        <section id='header'>
+            <span id='label'>Notepad</span>
+            <br>
+            <input id='search-bar'type='text'placeholder='search notes'/>
+        </section>
+        <section id='main'>
+            <div class='item'>
+                <i id='edit'class='fa-regular fa-pen-to-square'></i>
+                <i id='delete'class='fa-regular fa-trash-can'></i>
+                <h3 id='title'>note heading</h3>
+                <p id='sent'>sentence notes and drafts</p>
+                
+                <p id='timestamp'>
+                    <span id='month'>january</span>
+                    <span id='day'>6</span>,
+                    <span id='year'>2022</span> 
+                <span id='hour'>03</span>:<span id='minute'>36</span>
+                </p>
+                
+            </div>
+            
+        </section>
+        <h2 id='no-matches'>no matches found!</h2>
+        </section>
+        
+        <script>
+        
+        let months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+        let itemsArr=[];
+        
+        $('#add-btn').addEventListener('click',addNote);
+        $('#add-note').addEventListener('click',appendNote);
+        $('#_notes').addEventListener('click',_notes);
+        $('#edit').addEventListener('click',editNote);
+        $('#delete').addEventListener('click',deleteNote);
+        $('#search-bar').addEventListener('input',searchText);
+        
+        function searchText(e)
+        {
+            
+            let searchText=e.target.value;
+            
+            if($('.item').innerText.includes(searchText)!==true)
+            {
+            hideItems($('#add-btn'),$('.item'));
+            blockItems($('#no-matches'));
+            }
+            else
+            {
+                blockItems($('.item'));
+                flexItems($('#add-btn'));
+                hideItems($('#no-matches'));
+            }
+        }
+        
+        function addNote()
+        {
+            blockItems($('#notes'));
+            hideItems($('#main-cont'),$('#add-btn'));
+        }
+        
+        function appendNote()
+        {
+            let date=new Date();
+
+            
+            if($('#wtn-title').value=='' || $('#wtn-note').value=='')
+            {
+                alert('please fill-in all fields!!');
+                return;
+            }
+
+            let item=document.createElement('div');
+            $('#main').append(item);
+            item.classList.add('item');
+            item.innerHTML=`<i class='edit fa-regular fa-pen-to-square'></i>
+                <i class='delete fa-regular fa-trash-can'></i><h3 id='sent-title'>${ellipseStr(13,$('#wtn-title').value)}</h3>
+                <p id='sent-note'>${ellipseStr(90,$('#wtn-note').value)}</p>
+                
+                <p id='timestamp'>
+                    <span id='month'>${months[time().mth]}</span>
+                    <span id='day'>${time().dte}</span>,
+                    <span id='year'>${time().yr}</span> 
+                <span id='hour'>${time().hr<10?'0'+time().hr:time().hr}</span>:<span id='minute'>${time().min<10?'0'+time().min:time().min}</span>
+                </p>`;
+            itemsArr.push(item);
+
+                $('#wtn-title').value='';
+                $('#wtn-note').value='';
+                
+            hideItems($('#notes'));
+            blockItems($('#main-cont'));
+            flexItems($('#add-btn'));
+            
+            [...$$('.edit')].forEach((item,index)=>{item.onclick=function(e){let noteItem=e.target.parentNode.innerText
+            addNote();
+            $('#wtn-title').focus();
+            $('#wtn-title').value=noteItem.slice(0,13);
+            $('#wtn-note').value=noteItem.slice(0,-24).slice(13,);
+                
+            }});
+
+            
+            [...$$('.delete')].forEach((item,index)=>{item.onclick=function(e){let noteItem=e.target.parentNode;
+                noteItem.remove();
+            }});
+        }
+        
+        function _notes()
+        {
+            hideItems($('#notes'));
+            blockItems($('#main-cont'));
+            flexItems($('#add-btn'));
+            
+            let hgt=$('#main').getBoundingClientRect().height;
+            scrollTo(0,hgt);
+        }
+        
+        function editNote(e)
+        {
+            let noteItem=e.target.parentNode.innerText
+            addNote();
+            $('#wtn-title').focus();
+            $('#wtn-title').value=noteItem.slice(0,13);
+            $('#wtn-note').value=noteItem.slice(0,-24).slice(12,);
+        }
+        
+        
+        function deleteNote(e)
+        {
+            let noteItem=e.target.parentNode;
+            noteItem.remove();
+        }
+        
+        function dateNow()
+        {
+
+        $('#cur-month').innerText=months[time().mth-1];
+        $('#cur-day').innerText=time().dte;
+        $('#cur-year').innerText=time().yr;
+        
+        time().hr<10?$('#cur-hour').innerText=`0${time().hr}`:$('#cur-hour').innerText=time().hr;
+        
+        time().min<10?$('#cur-minute').innerText=`0${time().min}`:$('#cur-minute').innerText=time().min;
+
+        $('#month').innerText=months[time().mth-1];
+        $('#day').innerText=time().dte;
+        $('#year').innerText=time().yr;
+        
+        time().hr<10?$('#hour').innerText=`0${time().hr}`:$('#hour').innerText=time().hr;
+        
+        time().min<10?$('#minute').innerText=`0${time().min}`:$('#minute').innerText=time().min;
+        }
+        
+        setInterval(dateNow(),1000)
+        </script>
+    </body>
+</html>

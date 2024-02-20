@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <title>Custom Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    @import'../styles/css_0.css';
+    @import'../icons/fa/css/all.css';
+    *{font-family:cf_19;}
+    #cont{width:100%;height:100%;background:#404040}
+    #expression{width:95%;height:50px;color:black;background:#909090;top:40%;text-align:center;padding:15px 0;border-radius:0.25rem;font-size:1.5rem}
+    #value,#solve{border-radius:0.25rem;}
+    #value{width:95%;height:50px;color:#c0c0c0;background:#505050;text-align:center;}
+    #value::placeholder{color:#c0c0c0;text-align:center;}
+    #solve{width:50%;height:50px;margin-top:25px;color:#909090;background:#303030}
+    sup{font-size:0.75rem}
+    </style>
+    <script src='../scripts/js/utils.js'></script>
+   <script src='../scripts/js/deriviate_0.js'></script>
+</head>
+<body>
+    <div id='cont'>
+        <div id='expression'>
+            
+        </div>
+        <input id='value'placeholder='enter expression to differentiate'/>
+        <button id='solve'>differentiate</button>
+    </div>
+    <script>
+    centerX($('#expression'));
+    centerXY($('#value'),$('#solve'));
+       
+       //logic handler code-block
+    function modifyOutput(output)
+    {
+        output=output.replace(/[+-]?\d+[⁰¹²³⁴⁵⁶⁷⁸⁹]/g,'').replace(/x⁰/g,'').replace(/x¹/g,'x').replace(/[+-]?0x-¹/,'').replace(/^\+/,'');
+        return output;
+    }
+$('#value').value=`${(Math.round(Math.random()*9))+2}x⁴`;
+    localStorage.setItem('expression',$('#value').value);
+    let exp=localStorage.getItem('expression');
+
+$('#solve').onclick=
+function()
+{
+$('#value').focus();
+if($('#value').value==''){throw Error('no expression!');}
+
+else
+{
+    $('#expression').innerText=modifyOutput(differential($('#value').value));
+    
+}
+}
+$('#expression').innerText=modifyOutput(differential(exp));
+</script>
+</body>
+</html>

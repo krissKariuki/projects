@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+    <head>
+        <title>agglomorate application</title>
+        <meta name='viewport'content='width=device-width,initial-scale=1.0,user-scalable=0'/>
+        <style>
+        @import'../icons/fa/css/all.css';
+        @import'../styles/css_0.css';
+        
+            #id_0{font-family:cf_0,sans-serif;}
+            #id_1{font-family:cf_1,sans-serif;}
+            #id_2{font-family:cf_2,sans-serif;}
+            #id_3{font-family:cf_3,sans-serif;}
+            #id_4{font-family:cf_4,sans-serif;}
+            #id_5{font-family:cf_5,sans-serif;}
+            #id_6{font-family:cf_6,sans-serif;}
+            #id_7{font-family:cf_7,sans-serif;}
+            #id_8{font-family:cf_8,sans-serif;}
+            #id_9{font-family:cf_9,sans-serif;}
+            #id_10{font-family:cf_10,sans-serif;}
+            #id_11{font-family:cf_11,sans-serif;}
+            #id_12{font-family:cf_12,sans-serif;}
+            #id_13{font-family:cf_13,sans-serif;}
+            #id_14{font-family:cf_14,sans-serif;}
+            #id_15{font-family:cf_15,sans-serif;} 
+            #id_16{font-family:cf_16,sans-serif;}
+            #id_17{font-family:cf_17,sans-serif;}
+            #id_18{font-family:cf_18,sans-serif;}
+            #id_19{font-family:cf_19,sans-serif;} 
+
+
+            html{font-size:20px;}
+            *{position:relative;box-sizing:border-box;}
+            body{font-size:1rem;margin:0;}
+            #parent{width:100vw;height:100%;background:var(--bsc-blk);bakground-size:contain;overflow:scroll;display:flex;flex-flow:row wrap;justify-content:space-between;align-items:center;padding:5px}
+            .template{font-size:0.75rem;font-family:sans-serif;width:45%;height:250px;background:var(--bsc-blk);color:var(--bsc-wht);margin:5px 0px;border-radius:0.25rem;padding:10px 5px;overflow:hidden;}
+            .template p{padding:0;margin:0;}
+            .count{display:inline-block;color:var(--des-red);border-radius:50%;margin:0 10px 0px 0;font-size:1.25rem}
+            #top-nav{display:flex;flex-flow:row wrap;justify-content:space-between;align-items:flex-end;padding:10px 5px 5px 5px;background:var(--bsc-blk);position:sticky;top:0px;z-index:2;height:100px}
+            input[id='search']::placeholder{font-size:1rem;}
+            #search{width:100%;height:50px;border-radius:2rem;padding:0 20px 0 20px;background:var(--drk-0);color:var(--bsc-wht)}
+</style>
+
+<script src='../scripts/js/utils.js'></script>
+    </head>
+    <body>
+        <header id='top-nav' class='nav'>
+            <input id='search'placeholder='search here'/>
+        </header>
+        <section id='parent'></section>
+        <script>
+        let templates=20;
+        
+            for(let i=0;i<templates;i++)
+            {
+                let template=document.createElement('div');
+                $('#parent').append(template);
+                template.classList.add('template');
+                template.innerHTML=`<p><span class='count'>count</span>this is some dummy text for testing purposes-desired fonts will be used in future projects.These fonts are originally provided by google and they are available for free use.Just visit material design fonts and you will get all variety of professional fonts to choose from.</p>`;
+                
+                template.setAttribute('id',`id_${i}`);
+            }
+      [...$$('.count')].forEach((i,j)=>{i.innerText=j});
+        
+        </script>
+    </body>
+</html>

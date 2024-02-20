@@ -1,0 +1,48 @@
+<!DOCTPE html>
+<html>
+     <head>
+          <title></title>
+          <link rel='stylesheet' href='../styles/salebsite.css'>
+          <script src='../scripts/salebsite.js'></script>
+     </head>
+     <body onload='myFunction()'>
+     <!--Top Bar-->
+     	<div id='top_bar'>
+     	    <p id='logo'>SALE EBSITE</p>
+         </div><br>
+     <!--End Top Bar-->
+     <!--Search Section-->
+     	<div id='search_section'><br><br>
+     	   <input id='search_value' placeholder='Search Item'>
+     	   <button id='search_button'>Search<button>
+         </div><br>
+     <!--End Search Section-->
+     	<div id='search_results'></div>
+     	<div id='item_clicked'></div>
+         <div id='category_electronics1' class='tabcontent'></div>
+         <div id='category_foodstuff1' class='tabcontent'></div>
+         <div id='category_drinks1' class='tabcontent'></div>
+         <div id='category_shoes1' class='tabcontent'></div>
+         <div id='category_clothings1' class='tabcontent'></div>
+         <div id='home' class='tabcontent'>  
+     	    <p id='choice_T'>Top Rated</p><br>
+            <!--Top Rated-->
+     	    <div id='rated'>
+             </div><br>
+     <!--End Top Rated-->
+     	    <p id='choice_p'>Editor's Choice</p><br>
+     <!--Editor's Choice-->
+     	    <div id='editors'>
+             </div><br><br><br>
+     <!--End Editor's Choice-->
+     	</div>
+         <footer id='foot'>
+         	<button onClick="openTab('white','category_clothings1',this)" class='tablink' id='but_1'>CLOTHE</button>
+             <button onClick='openTab("white","category_foodstuff1",this)' class='tablink' id="but_2">FOOD</button>
+             <button onClick='openTab("white","category_electronics1",this)' class='tablink' id="but_3">TRONICS</button>
+             <button onClick='openTab("white","category_shoes1",this)'  class='tablink' "but_4">SHOES</button>
+             <button onClick='openTab("white","category_drinks1",this)' class='tablink' id="but_5">DRINKS</button>
+             <button onClick='openTab("white","home",this)' class='tablink' id='dispOnload'>HOME</button>
+         </footer>
+     </body>
+</html>

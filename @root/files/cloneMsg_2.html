@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0">
+    <title>messages UI</title>
+    <style>
+    @import'../styles/css_0.css';
+   @import'../icons/fa/css/all.css';
+   
+   body{font-family:cf_9}
+   #main-page{color:rgba(227,227,227,1);background:rgba(32,33,36,1);padding-bottom:10px;}
+   
+   #header-scn,#flt-lft{width:100vw;height:80px;background:rgba(32,33,36,0.9);display:flex;flex-flow:row nowrap;padding:10px 5px;justify-content:space-around;position:sticky;top:0;z-index:3;}
+   #flt-lft{position:absolute;width:50%;float:left;left:0;top:0;background:transparent;}
+   #ops{position:absolute;right:0;top:30%;}
+   #ext-arw{position:relative;top:20%;left:-5}
+   #header-scn i{font-size:1.5rem;}
+   #dp{width:45px;height:45px;background-image:url('../media/images/msg.png');background-position:center;background-size:cover;border-radius:50%;}
+   
+   #form-scn{width:100vw;height:calc(100vh - 90px);background:rgba(32,33,36,1)}
+   #values{width:80%;height:90%;background:rgba(32,33,36,1);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+   #values input,button{display:block;width:100%;height:9%;border-radius:0.25rem;margin:50px 0;}
+   #values input::placeholder{text-transform:uppercase}
+   #setValues{width:50%;left:25%}
+   
+   #msgs-scn{width:100vw;height:100vh;background:rgba(32,33,36,1);overflow:scroll;}
+   #Recipient{text-transform:uppercase;}
+   .msg-box,#Msg-box{width:88%;height:auto;background:rgba(48,48,48,1);padding:1px 9px;border-radius:1rem;line-height:1.5rem;margin:15px 0 15px 10px;}
+   .tym,#telNum{border-bottom:0.5px solid white;}
+   
+   .snt-time{position:absolute;top:-25px;left:40%}
+   
+   #timestamp{left:20px;top:-10px;font-size:0.8rem;}
+   #saf{color:rgba(50,200,200)}
+   
+   #banner{width:95%;height:50px;background:rgba(227,227,227);border-radius:0.5rem;color:black;display:flex;align-items:center;justify-content:flex-start;padding:0 10px;margin-top:30px;left:8px}
+   #cant-reply{width:100%;font-size:0.9rem}
+   #learn-more{color:rgba(70,100,200);margin-left:0px;float:right;}
+    </style>
+    <script src='../scripts/js/utils.js'></script>
+    <script src='../scripts/js/names.js'></script>
+</head>
+<body>
+    <section id='main-page'>
+        
+        <!--header section-->
+        <section id='header-scn'>
+            
+            <div id='flt-lft'>
+            <i id='ext-arw'class='fa-solid fa-arrow-left'></i>
+            <div id='dp'></div>
+            <h3 id='head-label'>CHAT</h3>
+            </div>
+            
+        <i id='ops'class='fa-solid fa-ellipsis-v'>
+        </i>
+        </section>
+        
+        <!--form section-->
+        <section id='form-scn'>
+            <div id='values'>
+            <input required id='tel'type='tel'placeholder='phone number'/>
+            <input required id='name'type='text'placeholder='name'/>
+            <input required id='amt'type='number'placeholder='amount'/>
+            
+            <button id='setValues'>send</button>
+            </div>
+        </section>
+        
+        <!--messages section-->
+        <section id='msgs-scn'>
+            
+            <div id='Msg-box'>
+                <p id='Msg'>
+                    <span id='Txn-code'>RKD17Q7XHL</span> Confirmed. Ksh<span id='Amount'>10,000.00</span> <span id='Sentate'>sent</span> to <span id='Recipient'>BRIAN JUMA</span> <span id='telNum'>0768144270</span> on <span class='tym'><span id='Date'>29/12/23</span> at <span id='Time'>4:14</span> <span id='meridiam'>am</span>.</span> New M-PESA balance is Ksh<span id='Balance'>123.14</span>. Transaction cost, Ksh0.00. Amount you can transact within the day is 499,960.00. To receive Money on POCHI today dial *334# & opt in.
+                </p>
+            </div>
+                <span id='timestamp'><span id='timeid'>7:38</span>
+                <span id='saf'>•safaricom</span>
+                </span>
+                </span>
+                
+                <div id='banner'><p id='cant-reply'>can't reply to this short code<span id='learn-more'>learn more</span></p></div>
+
+        </section>
+    </section>
+    <script type='module'>
+ 
+ //import {values} from '../scripts/stk_0.js';
+ displayState('none',$('#msgs-scn'));
+  
+  let tone=document.createElement('audio');
+  tone.src='../media/audio/tone.mp3';
+  tone.style.display='none';
+
+  
+  $('#setValues').addEventListener('click',submit);
+  $('#ext-arw').addEventListener('click',togglePage);
+  
+  function AsyncLoad()
+  {
+      $('#tel').value='0726479111';
+      $('#name').value='jeffery kariuki';
+      $('#amt').value='800';
+          displayState('none',$('#form-scn'));
+          displayState('block',$('#msgs-scn'));
+          
+          $('#dp').style.backgroundImage='url(../media/images/user.png)';
+          $('#head-label').innerText='MPESA';
+
+          
+          $('#Amount').innerText=$('#amt').value;
+          $('#Recipient').innerText=$('#name').value;
+          $('#telNum').innerText=$('#tel').value;
+          
+          $('#msgs-scn').scroll(0,2000)
+  }
+  AsyncLoad();
+
+  function togglePage()
+  {
+      if($('#form-scn').style.display=='block')
+      {
+          displayState('none',$('#form-scn'));
+          displayState('block',$('#msgs-scn'));
+          
+          $('#dp').style.backgroundImage='url(../media/images/user.png)';
+          $('#head-label').innerText='MPESA';
+          
+          
+      }
+      else {
+          displayState('block',$('#form-scn'));
+          displayState('none',$('#msgs-scn'));
+          
+          $('#dp').style.backgroundImage='url(../media/images/msg.png)';
+          $('#head-label').innerText='CHAT';
+
+          
+           }
+  }
+  function submit()
+  {
+      for(let i=0;i<[...$$('input')].length;i++)
+      {
+          if([...$$('input')][i].value==''||[...$$('input')][i+1].value==''||[...$$('input')][2].value=='')
+          {
+              alert('please fill in all fields!');
+              return;
+          }
+      else{
+          displayState('none',$('#form-scn'));
+          displayState('block',$('#msgs-scn'));
+          
+          $('#dp').style.backgroundImage='url(../media/images/user.png)';
+          $('#head-label').innerText='MPESA';
+
+          
+          $('#Amount').innerText=$('#amt').value;
+          $('#Recipient').innerText=$('#name').value;
+          $('#telNum').innerText=$('#tel').value;
+          
+          tone.play();
+          $('#msgs-scn').scroll(0,2000)
+      }
+  }
+  }
+  
+  let numberOFmessages=5;
+  //Date update;
+  $('#Date').innerText=`${time().dte}/${time().mth}/${time().yr}`;
+  
+  //Time update
+  let merd=$('#meridiam');
+  let am=time().hr;
+  let pm=time().hr-12;
+  
+  $('#Time').innerText=`${(time().hr)>12?time().hr=pm:time().hr=am}:${time().min<10?time().min='0'+time().min:time().min=time().min}`;
+  $('#timeid').innerText=`${time().hr}:${time().min<10?time().min='0'+time().min:time().min=time().min}`;
+  if(time().hr>12)
+  {
+      merd.innerText='PM';
+  }
+  else merd.innerText='AM';
+  
+    for(let i=0;i<numberOFmessages;i++)
+  {
+      let msgBox=document.createElement('div');
+      $('#msgs-scn').prepend(msgBox);
+      msgBox.classList.add('msg-box');
+      msgBox.innerHTML=
+      `                
+                  <p class='msg'>
+                    <span class='txn-code'>RKD17Q7XHL</span> Confirmed. Ksh<span class='amount'>20.00</span> <span class='sentate'>sent</span> to <span class='recipient'>Joseph  Njeri</span> on <span class='tym'><span class='date'>13/11/23</span> at <span class='time'>9:32 AM</span>.</span> New M-PESA balance is Ksh<span class='balance'>123.14</span>. Transaction cost, Ksh0.00. Amount you can transact within the day is 499,960.00. To receive Money on POCHI today dial *334# & opt in.
+                </p>`;
+  }
+  
+  function randomise()
+  {
+  [...$$('.amount')].forEach((i,j)=>{
+    i.innerText=Math.round(Math.random()*500)
+  });
+  [...$$('.recipient')].forEach((i,j)=>{
+    i.innerText=names[Math.floor(Math.random()*28)];
+  });
+  tone.play();
+  }
+  $('#dp').onclick=randomise;
+  
+    </script>
+</body>
+</html>

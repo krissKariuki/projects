@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name='viewport'content='width=device-width,initial-scale=1.0,user-scalable=0'/>
+        <title>demo</title>
+        
+        <style>
+    @import'../styles/css_0.css';
+    @import'../icons/fa/css/all.css';
+    *{font-family:cf_19;}
+    body{background:#000}
+    #derKbod{width:100%;height:45%;background:#111;position:fixed;bottom:-45%;display:flex;flex-flow:row wrap;justify-content:center;align-items:center;user-select:none;transition:2s}
+    button{width:25%;height:25%;flex-grow:0;text-align:center;font-family:cf_19;font-size:1.25rem}
+    #stdI{width:100%;height:50px;background:#333;color:#ccc;top:10px;left:0px;font-family:cf_19;padding:5px;top:47.35%;transition:2s;}
+    .num{background:#111;color:#ccc}
+    .num:active,.sign:active{font-size:1.75rem;font-weight:800}
+    .sign{background:#222;color:#ccc}
+    
+        </style>
+      <script src='../scripts/js/utils.js'></script>
+      <script src='../scripts/js/deriviate_2.js'></script>
+    </head>
+    <body>
+        
+        <script>
+        let keys='1 2 3 ^ 4 5 6 x 7 8 9 + = 0 del -'.split(' ');
+        let ids='one two three pow four five six var seven eight nine plus equals zero del minus'.split(' ');
+        let clas='num num num sign num num num sign num num num sign sign num sign sign'.split(' ');
+        newElement($('body'),'div','derKbod','keyboard');
+        
+        for(let i=0;i<keys.length;i++)
+            {
+            newElement($('#derKbod'),'button',`${ids[i]}`,`${clas[i]}`,`${keys[i]}`);
+            }
+           // $('#del').innerHTML=`<i class='fa-solid fa-delete-left'></i>`;
+
+            
+            let field=function(e){newElement($('body'),'input','stdI','field');}
+            field();
+            
+            $('#stdI').setAttribute('readonly',true);
+
+document.addEventListener('click',
+function(e)
+{
+    if(!$('#stdI').contains(e.target)&&!$('#derKbod').contains(e.target)){fieldNotFocused();}
+    
+    else fieldIsFocused();
+})
+
+fieldIsFocused();
+
+function fieldIsFocused(e)
+{
+    css($('#stdI'),'border','1px solid #FF9F00');
+    css($('#stdI'),'top','47.35%');
+    
+    css($('#derKbod'),'bottom','0%');
+    
+    $('#derKbod').addEventListener('click',derKbodActive);
+}
+    
+    function derKbodActive(e)
+    {
+        let id=e.target.getAttribute('id');
+        switch(id)
+        {
+            case 'del':$('#stdI').value=$('#stdI').value.slice(0,-1);
+            
+            break;
+            case 'equals':
+                if($('#stdI').value=='')
+                {
+                    $('#stdI').placeholder='enter a valid expression';
+                }
+                else
+                {
+                    let result=function()
+                    {
+                        return differentiate($('#stdI').value);
+                    }
+                    
+                     $('#stdI').value=result();
+                }
+            break;
+            
+            default:$('#stdI').value+=e.target.innerText;
+        }
+    }
+
+
+function fieldNotFocused()
+{
+    css($('#stdI'),'border','1px solid #333');
+    css($('#stdI'),'top','0');
+    
+    css($('#derKbod'),'bottom','-45%');
+}
+        </script>
+</body>
+</html>
