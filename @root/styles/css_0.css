@@ -1,0 +1,135 @@
+
+*{box-sizing:border-box;position:relative;}
+
+html{font-size:16px;font-weight:400;font-family:cf_0,sans-serif;}
+
+body{margin:0;max-width:100%;}
+
+input,textarea,button{outline:none;border:none;font-size:1rem;font-family:auto;background:var(--brt-1)}
+
+:root{
+    
+    /*colors*/
+    
+    /*basic shades of white and black*/
+--bsc-blk:rgba(25,25,25,1);
+--bsc-wht:rgba(250,250,250,1);
+--bsc-gry:rgba(150,150,150,1);
+
+/*dark shades*/
+--drk-0:rgba(36,36,36,1);
+--drk-1:rgba(50,50,50,1);
+
+/*bright shades*/
+--brt-0:rgba(245,245,245,1);
+--brt-1:rgba(225,225,225,1);
+
+/*dull shades of rgb colors*/
+--des-red:rgba(200,50,50,0.75);
+--des-grn:rgba(50,200,50,0.75);
+--des-blu:rgba(50,50,200,0.75);
+
+/*positioning*/
+
+}
+
+        @font-face
+        {
+            font-family: cf_0;
+            src: url(../fonts/mdf_0.ttf);
+        }
+         @font-face
+        {
+            font-family: cf_1;
+            src: url(../fonts/mdf_1.ttf);
+        }
+        @font-face
+        {
+            font-family: cf_2;
+            src: url(../fonts/mdf_2.ttf);
+        }
+         @font-face
+        {
+            font-family: cf_3;
+            src: url(../fonts/mdf_3.ttf);
+        }
+        @font-face
+        {
+            font-family: cf_4;
+            src: url(../fonts/mdf_4.ttf);
+        }
+         @font-face
+        {
+            font-family: cf_5;
+            src: url(../fonts/mdf_5.ttf);
+        }
+        @font-face
+        {
+            font-family: cf_6;
+            src: url(../fonts/mdf_2.ttf);
+        }
+         @font-face
+        {
+            font-family: cf_7;
+            src: url(../fonts/mdf_7.ttf);
+        }
+        @font-face
+        {
+            font-family: cf_8;
+            src: url(../fonts/mdf_8.ttf);
+        }
+         @font-face
+        {
+            font-family: cf_9;
+            src: url(../fonts/mdf_9.ttf);
+        }
+        @font-face
+        {
+            font-family: cf_10;
+            src: url(../fonts/mdf_10.ttf);
+        }
+         @font-face
+        {
+            font-family: cf_11;
+            src: url(../fonts/mdf_11.ttf);
+        }
+        @font-face
+        {
+            font-family: cf_12;
+            src: url(../fonts/mdf_12.ttf);
+        }
+         @font-face
+        {
+            font-family: cf_13;
+            src: url(../fonts/mdf_13.ttf);
+        }
+        @font-face
+        {
+            font-family: cf_14;
+            src: url(../fonts/mdf_14.ttf);
+        }
+         @font-face
+        {
+            font-family: cf_15;
+            src: url(../fonts/mdf_15.ttf);
+        }
+        @font-face
+        {
+            font-family: cf_16;
+            src: url(../fonts/mdf_16.ttf);
+        }
+         @font-face
+        {
+            font-family: cf_17;
+            src: url(../fonts/mdf_17.ttf);
+        }
+        @font-face
+        {
+            font-family: cf_18;
+            src: url(../fonts/mdf_18.ttf);
+        }
+         @font-face
+        {
+            font-family: cf_19;
+            src: url(../fonts/mdf_19.ttf);
+        }
