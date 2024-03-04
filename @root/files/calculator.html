@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name='viewport'content='width=device-width,initial-scale=1.0,user-scalable=0'/>
+        <title>calculator</title>
+        
+        <style>
+    @import'../styles/css_0.css';
+    @import'../icons/fa/css/all.css';
+    
+    body{background:#000;}
+    #root{width:360px;height:664px;background:#000;color:#dedede;}
+    .L0{width:100%;border:0.0px solid red;}
+    #options{height:50px;background:#121212;}
+    #calc-mode{font-size:2rem;left:90%;top:20%}
+    #screen{height:calc(40% - 50px);display:flex; justify-content:center;align-items:center;background:#121212;}
+    #display{height:80px;width:100%;font-size:3rem;caret-color:#1287fc;text-align:right;background:inherit;color:#dedede;font-family:cf_9;}
+    #keyboard{height:calc(100% - (50px + (40% - 50px)));background:#252525;display:flex;flex-flow:row wrap;justify-content:space-between;align-items:center;}
+    .key{width:25%;height:20%;font-size:2rem;background:inherit;color:inherit;font-family:cf_9}
+    
+    .sign{color:#1287fc;}
+    
+ .nber:active,.sign:active,#float:active{background:#202020;}
+    #equals:active{background:#23baff}
+    
+    
+    #equals{background:#1287fc;color:#dedede;width:40%;height:15%;border-radius:0.25rem;margin-left:10%}
+    </style>
+     <script src='../scripts/js/utils.js'></script>
+    <script src='../scripts/js/calculator_db.js'></script>
+    <script defer src='../scripts/js/exit_app.js'></script>
+    
+ </head>
+    <body>
+        <section id='root'></section>
+    <script>
+    
+    
+    //render html 
+    render(new Widgets('#root','L0','options','screen','keyboard'));
+    
+    render(new Components('#options',`<i id='calc-mode' class='fa fa-percent'></i>`));
+    tag='input';
+    render(new Widgets('#screen','L1','display'));
+    tag='div';
+    
+    for(let i=0;i<txts.length;i++)
+    {
+        newElement($('#keyboard'),'button',ids[i],`key ${clases[i]}`,txts[i]);
+    }
+    
+    
+//_________________functionality__________________________________________________________________
+
+
+    //variable initialization
+    let disp=$('#display');
+    
+    
+    //prevent UI keyboard from showing
+    $('#display').readOnly=true;
+    
+    //enable keypressing;
+    [...$$('.key')].forEach(key=>{key.addEventListener('click',writeToScreen)});
+    
+    
+    //function to handle keypress events and mathematical calculations;
+
+    function writeToScreen(e)
+    {
+        let n=0;
+        
+  if (event.target !== this) 
+  {
+    this.dispatchEvent(new Event('click'));
+    return;
+  }
+  
+  let action=this.getAttribute('id');
+  
+  switch(action)
+  {
+      case 'AC':disp.value='';
+      break;
+      
+      case 'del':disp.value=disp.value.slice(0,-1);
+      break;
+      
+      case 'float':
+          if(disp.value.includes('.'))
+          {
+              return;
+          }
+          disp.value+='.';
+      break;
+      
+      case 'equals':
+          if(disp.value=='')
+          {
+              return;
+          }
+          disp.value=calcExp(disp.value);
+      break;
+      
+      default:disp.value+=this.innerText;
+  }
+  n++;
+};    console.warn('need to match float expression at the end of the function')
+    </script>
+</body>

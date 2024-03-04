@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name='viewport'content='width=device-width,initial-scale=1.0,user-scalable=0'/>
+        <title>demo</title>
+        
+        <style>
+    @import'../styles/css_0.css';
+    @import'../icons/fa/css/all.css';
+    @import'../styles/demo_0.css';
+    
+    .button{top:50;}
+    </style>
+     <script src='../scripts/js/utils.js'></script>
+     <script src='../scripts/js/kos.js'></script>
+     <!--<script defer src='../scripts/js/exit_app.js'></script>-->
+     
+     <script  src='../scripts/js/demo_0.js'></script>
+ </head>
+    <body>
+        <section id='root'>
+            <button class='button'>button</button>
+        </section>
+    <script>
+preview(previewActive);
+
+function previewActive()
+{
+    $('body').ontouchstart=()=>{
+        $('#root').setAttribute('style','transform:scale(1)');
+    }
+    $('#root').setAttribute('style','transform:scale(0.75);border-radius:0.75rem');
+}
+
+        
+    </script>
+</body>
+</html>
