@@ -2,6 +2,12 @@
 let $=document.querySelector.bind(document);
 let $$=document.querySelectorAll.bind(document);
 
+
+//random value generator function
+let random = function (range)
+{
+     return Math.round(Math.random()*range);
+}
 //string methods
 
 //shorten text and add ellipse at the end
@@ -41,20 +47,56 @@ function newElement(parent,elem,id,Class,txt='')
     let el=document.createElement(elem);
     parent.append(el);
     el.setAttribute('id',id);
-    el.classList.add(Class);
+    el.setAttribute('class',Class);
     el.innerHTML=txt;
 }
+
+//render multiple elements to the document
+let tag='div';
+class Widgets
+{
+constructor(parent,clas,...widgets)
+{
+this.parentNode=parent;
+this.tag=tag;
+this.ids=[];
+this.clas=clas;
+this.widgets=widgets;
+}
+render()
+{
+this.widgets.forEach((widget,i)=>{
+this.ids.push(widget);
+newElement($(this.parentNode),this.tag,this.ids[i],this.clas);});
+}
+}
+
+class Components
+{
+constructor(widget,html)
+{
+this.widget=widget;
+this.html=html;
+}
+render()
+{
+    $(this.widget).innerHTML=this.html;
+}
+}
+function render(...components)
+{
+    components.forEach(component=>{
+        return component.render();
+    })
+}
+//end of render code block;
 
 //alter css styles code block;
 
 //toggle classList of an element
-function toggleClass(elem,condition,styles)
+function switchStyles(styles,...elems)
 {
-    if(condition===true)
-    {
-        elem.classList.add(styles)
-    }
-    else elem.classList.remove(styles)
+  elems.forEach(el=>{el.classList.toggle(styles)});
 }
 
   function  defProp(obj, key, value) {
@@ -235,13 +277,35 @@ function calculate(a,b,sign)
 }
         function calcExp(expression)
         {
-            let tokens=expression.match(/\d+|\+|\-|\*|\//g);
+           let tokens=expression.match(/\d+\.?\d*|\+|\-|×|÷|%/g);
             let pre=0;
             let post=0;
             
             for(let i=0;i<tokens.length;i++)
             {
-                if(tokens[i]==='/')
+                if(tokens[i]==='%')
+                {
+                    pre=parseFloat(tokens[i-1]);
+                    post=parseFloat(tokens[i+1]);
+                    
+                    if(post==0)
+                    {
+                        return 'division by zero not possible!';
+                    }
+                    else
+                    {
+                    let result=(pre/post)*100;
+                    tokens.splice(i-1,3,result);
+                    i-=2;
+                    }
+                }
+            }
+            
+            
+            
+            for(let i=0;i<tokens.length;i++)
+            {
+                if(tokens[i]==='÷')
                 {
                     pre=parseFloat(tokens[i-1]);
                     post=parseFloat(tokens[i+1]);
@@ -260,7 +324,7 @@ function calculate(a,b,sign)
             }
             for(let i=0;i<tokens.length;i++)
             {
-                if(tokens[i]==='*')
+                if(tokens[i]==='×')
                 {
                     pre=parseFloat(tokens[i-1]);
                     post=parseFloat(tokens[i+1]);
@@ -298,3 +362,67 @@ function calculate(a,b,sign)
             
         }
 //end of mathematical methods
+
+//color manipulation code block
+        function randomColor(color)
+        {
+            
+            if(color=='r')
+            {
+                this.random_red='#'+Math.round(Math.random()*0xff).toString(16).padEnd(6,'0');
+                
+                return this.random_red;
+            }
+            else if(color=='g')
+            {
+                this.random_green='#'+Math.round(Math.random()*0xff).toString(16).padStart(4,'0').padEnd(6,'0');
+                
+                return this.random_green;
+                
+            }
+            else if(color=='b')
+            {
+                this.random_blue='#'+Math.round(Math.random()*0xff).toString(16).padStart(6,'0');
+                
+                return this.random_blue;
+                
+            }
+            else if(color=='rg')
+            {
+                this.random_redGreen='#'+Math.round(Math.random()*0xffff).toString(16).padEnd(6,'0');
+                
+                return this.random_redGreen;
+            }
+            
+            else if(color=='rb')
+            {
+                this.random_redBlue='#'+Math.round(Math.random()*0xff).toString('16').padEnd(4,'0')+Math.round(Math.random()*0xff).toString(16);
+                
+                return this.random_redBlue;
+            }
+            else if(color=='gb')
+            {
+                this.random_greenBlue='#'+Math.round(Math.random()*0xffff).toString(16).padStart(6,'0');
+                
+                return this.random_greenBlue;
+            }
+            else if(color=='rgb')
+            {
+                this.random_rgb='#'+Math.round(Math.random()*0xffffff).toString(16);
+                
+                return this.random_rgb;
+            }
+            
+            
+            else 
+            {
+                throw Error('ERROR 027:invalid color format');
+            }
+        }
+    function fireEvents(...events)
+    {
+        events.forEach(event=>{
+            return event; 
+        })
+    }
+    

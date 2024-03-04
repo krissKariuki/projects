@@ -1,0 +1,3 @@
+let ids=['AC','divide','multiply','del','seven','eight','nine','minus','four','five','six','plus','one','two','three','percent','float','zero','equals'];
+let clases='sign sign sign sign nber nber nber sign nber nber nber sign nber nber nber sign float nber equals'.split(' ');
+let txts=['C','&divide;','&times;',"<i class='fa fa-delete-left'></i>",'7','8','9','-','4','5','6','+','1','2','3','%','.','0','<i class="fa fa-grip-lines"></i>'];
