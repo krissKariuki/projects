@@ -1,12 +1,12 @@
 import json
 import pandas as pd
 
-crypto='../database/in/crypto.json'
-INPUT='../database/in/data_1.json'
-OUTPUT='../database/out/output.json'
+crypto='../db/in/crypto.json'
+INPUT='../db/in/data_1.json'
+OUTPUT='../db/out/output.json'
 
 class Dataset :
-	def __init__(self,file=INPUT,token=2.0,time=15) :
+	def __init__(self,token=2.0,period={'window':60,'emaw':10},file=INPUT) :
 		
 		with open(file,'r') as file_in ,open(crypto,'r') as cryptos:
 			array=json.loads(file_in.read())[::-1]
@@ -14,10 +14,18 @@ class Dataset :
 		
 		self.crypto=crypto_db['currency']
 		self.tokens=crypto_db['tokens']
-		self.array=array
 		self.token=token
-		self.time=time
-		self.frame=int(self.time*60/27)
+		
+		self.TOKEN= next((self.TOKEN for self.TOKEN,value in self.tokens.items() if value["flop"] == token),None)
+		
+		if self.TOKEN is None :
+			self.TOKEN={'name':'randcoin','alias':'RC','flop':self.token}
+		else :self.TOKEN=self.tokens[self.TOKEN]
+		
+		self.array=array
+		self.period=period['window']
+		self.emaw=period['emaw']
+		self.frame=int(self.period*60/27)
 		self.total=0
 		self.avg=0
 		
@@ -26,9 +34,10 @@ class Dataset :
 		self.dttms=[]
 		self.coefs=[]
 		
+
 		self.dataset={
-		'token':self.token,
-		'window':{'time':self.time,'span':self.frame},
+		'token':self.TOKEN,
+		'window':{'vizw':{'period':self.period,'span':self.frame},'emaw':{'period':self.emaw,'span':int(self.emaw*60/27)}},
 		'datapoints':[]
 		}
 		
@@ -85,7 +94,7 @@ class Dataset :
 					
 				self.mults.append(num)
 				self.dttms.append(time)
-				self.coefs.append(coef)
+				self.coefs.append(round(coef,2))
 				
 				
 	def EMA (self,key='coefs',ißhort=True) :
@@ -93,14 +102,14 @@ class Dataset :
 			'mults':[self.token if num > self.token else num for num in self.mults],
 			'coefs':self.coefs
 			}
-			F=self.frame if ißhort else self.frame*2
+			F=self.emaw if ißhort else self.emaw*2
 			array=[]
 			smoothing=2/(F+1)
 			array.append(switch[key][0])
 			
 			for i in range(1,len(switch[key])) :
-				sema=(switch[key][i]-array[-1])*smoothing+array[-1]
-				array.append(round(sema,2))
+				ema=(switch[key][i]-array[-1])*smoothing+array[-1]
+				array.append(round(ema,2))
 			
 			return array
 			
@@ -124,7 +133,7 @@ class Dataset :
 	
 	def ACTIVE (self) :
 				active_window=len(self.array)-self.frame
-				return {'token':self.token,'window':self.dataset['window'],'datapoints':self.dataset['datapoints'][active_window : ]}
+				return {'token':self.TOKEN,'window':self.dataset['window'],'datapoints':self.dataset['datapoints'][active_window : ]}
 				
 				
 	def IO (self,recent=True,file=OUTPUT) :
@@ -133,5 +142,5 @@ class Dataset :
 			with open(file,'w') as output :
 				output.write(data)
 	
-data=Dataset(INPUT,15,30)
+data=Dataset(2.5,{'window':60,'emaw':10})
 data.IO()
