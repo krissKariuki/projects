@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>crash trade</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='icons/fa/css/all.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    
+    
+    <script src="{{ url_for('static', filename='scripts/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"defer></script>
+
+</head>
+<body>
+    <section id='root'>
+        
+        <section class='ui-nav-bar bottom-nav'>
+            <p class='tab tab-home'>
+                <i class='fa fa-house'></i>
+                <span>home</span>
+            </p>
+            
+            <p class='tab tab-trade'>
+                <i class='fa fa-chart-simple'></i>
+                <span>trade</span>
+            </p>
+            
+            <p class='tab tab-market'>
+                <i class='fa fa-layer-group'></i>
+                <span>market</span>
+            </p>
+
+            <p class='tab tab-wallet'>
+                <i class='fa fa-wallet'></i>
+                <span>wallet</span>
+            </p>
+
+
+            <p class='tab tab-account'>
+                <i class='fa fa-user'></i>
+                <span>account</span>
+            </p>
+
+        </section>
+        
+        <section class='page pg-home'>
+            home page
+        </section>
+        <section class='page pg-trade'>
+            trade page
+        </section>
+        
+        <!--market page-->
+        <section class='page pg-market'>
+            <section class='market-header'>
+                
+                <h4 id='market-tokens'class='market-header-option market-header-tokens'>tokens</h4>
+                
+                <h4 id='market-performance'class='market-header-option market-header-performance'>performance</h4>
+                
+            </section>
+            <section class='market-page market-pg-tokens'>
+                <div class='tokens-pg-lbl'><h4>commodity</h4><h4 class='tokens-pg-price'>balance</h4><h4>coef</h4><h4>24hr change</h4>
+                </div>
+            </section>
+            <section class='market-page market-pg-performance'>
+
+                <div class='performance-pg-lbl'>
+                <h4>investment</h4>
+                    <h4>balance<span class='currency'></span></h4><h4>coef</h4><h4>24hr change</h4>
+                </div>
+                <div class='performance-pg-info'>
+                    
+                <h4 class='performance-pg-investment currency-rate'>
+                    <span class='performance-pg-curr currency'>kes</span> <span class='performance-pg-inv balance'>0.00</span>
+                    </h4>
+
+                <h4 class='performance-pg-price currency-rate'>
+                    <span class='performance-pg-curr currency'>kes</span> <span class='performance-pg-bal balance'>0.00</span>
+                    </h4>
+                    <h4 class='performance-pg-coef'>1000.00</h4>
+                    <h4 class='performance-pg-change'>+3.14%</h4>
+                    </div>
+            </section>
+        </section>
+        
+        <!--wallet page-->
+        <section class='page pg-wallet'>
+            <section class='wallet-header'>
+                <h3>
+                    Balance
+                <i id='hide-balance'class='fa-regular fa-eye-slash'></i>
+                <i id='swap-currency' class='fa fa-arrows-rotate'></i>
+                </h3>
+                <h2 class='currency-rate'><span class='wallet-cur currency'>kes</span> <span class='balance'id='ovr-bal'>1000.00</span></h2>
+
+                <button id='withdraw'>withdraw
+                </button>
+                <button id='deposit'>deposit
+                </button>
+            </section>
+            <h4 class='lbl lbl-tokens'>active tokens</h4>
+            <section class='tokens-ls'></section>
+            
+            <h4 class='lbl lbl-transactions'>transaction history</h4>
+            <section class='wallet-transactions'>
+                <p>
+                <i class='fa fa-newspaper'></i>
+                <br>
+                <span>no transactions found</span>
+                </p>
+            </section>
+        </section>
+
+        <!--account page-->
+        <section class='page pg-account'>
+            <section class='acc-nav-bar account-nav'>
+                <p class='acc-nav acc-details'>
+                    details
+                </p>
+                <p class='acc-nav acc-security'>
+                    security
+                </p>
+                <p class='acc-nav acc-verification'>
+                    verification
+                </p>
+                <p class='acc-nav acc-notifications'>
+                    notifications
+                </p>
+            </section>
+            
+            <section class='acc-page acc-pg-details'>
+                
+                <div class='pg-details details-name'>
+                    <h3>username</h3>
+                    <p id='username'>john doe</p>
+                    
+                    <i class='fa fa-chevron-right'></i>
+                </div>
+                
+                <div class='pg-details details-email'>
+                    <h3>email</h3>
+                    <p id='email'>johnDoe123@gmail.com</p>
+                </div>
+                
+                <div class='pg-details details-change-psd'>
+                     <h3>change password</h3>
+                    <i class='fa fa-chevron-right'></i>
+                </div>
+                
+                <div class='pg-details details-del-acc'>
+                    <h3>delete account</h3>
+                    <i class='fa fa-chevron-right'></i>
+                </div>
+                
+                <div class='pg-details details-log-out'>
+                    <h3>log out</h3>
+                    <i class='fa fa-chevron-right'></i>
+                </div>
+                
+                <div class='pg-details details-version'>
+                    
+                    <h3>version</h3>
+                    <p id='version'>1.2.3</p>
+                </div>
+            </section>
+            
+            <section class='acc-page acc-pg-security'>
+                <div class='div-security'>
+                    <h3>2-factor authentication</h3>
+                    <p>In order to further secure your account,please enable Two Factor Authentication(2FA)
+                    </p>
+                    <div class='switch 2fa'>
+                        <div class='bool'>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class='div-security'>
+                    <h3>biometrics authentication</h3>
+                    <p>use your biometric sensor to login to your account without having to type your passcode
+                    </p>
+                    <div class='switch biometrics'>
+                        <div class='bool'>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class='div-security'>
+                    <h3>extra step verification</h3>
+                    <p>requires a 6-digit verification code in trades and withdrawals for enhanced security
+                    </p>
+                    <div class='switch extra-verification'>
+                        <div class='bool'>
+                        </div>
+                    </div>
+                </div>
+            <div class='div-activity'>
+                <h3>activity</h3>
+                <i class='fa fa-chevron-right'></i>
+            </div>
+            </section>
+            
+            <section class='acc-page acc-pg-verification'>
+                <div class='div-verification'>
+                    <h3>account verification</h3>
+                    <p>account verifications are processed within 24hours</p>
+                <i class='fa fa-chevron-right'></i>
+                </div>
+
+                <div class='div-verification phone-verif'>
+                    <h3>phone</h3>
+                    <p id='phone-verif'>not verified&nbsp;&nbsp;&nbsp;<i class='fa fa-triangle-exclamation'></i>
+                    </p>
+                </div>
+
+            </section>
+            
+            <section class='acc-page acc-pg-notifications'>
+                
+                <div class='div-notifs'>
+                    <h3>push notifications</h3>
+                    <p>receive notifications on every new trade and message on your phone</p>
+                    <div class='switch push-notif'>
+                        <div class='bool'>
+                        </div>
+                    </div>
+
+                </div>
+                <div class='div-notifs'>
+                    <h3>email notifications</h3>
+                    <p>receive an email on every new trade and message</p>
+                    <div class='switch email-notif'><div class='bool'>
+                        </div>
+                    </div>
+
+                </div>
+                <div class='div-notifs div-notif-sms'>
+                    <h3>sms notifications</h3>
+                    <p>only available to users who have verified their phone number</p>
+
+                    <div class='switch sms-notif'>
+                        <div class='bool'>
+                        </div>
+                    </div>
+                    </div>
+            </section>
+        </section>
+        
+        
+    </section>
+</body>
+</html>

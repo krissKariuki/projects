@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <style>
+        #kes,#usd{display:inline;}
+    </style>
+</head>
+<body>
+    kes <div id="kes">1000</div>
+    <br>
+    usd <div id="usd"></div>
+
+    <script>
+    'use strict'
+    
+const $=document.querySelector.bind(document)
+const $$=document.querySelectorAll.bind(document)
+
+const url='https://v6.exchangerate-api.com/v6/f987115a5202b2a548b68e6e/latest/USD'
+
+const TIMEOUT_DURATION = 1000; // Timeout duration in milliseconds (e.g., 5 seconds)
+
+async function fetchData(url) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_DURATION);
+
+
+    const response = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+
+    return await response.json();
+ }
+
+// Example usage:
+
+fetchData(url)
+  .then(data => {
+    const rate=data.conversion_rates.KES
+    console.log('Fetched data:', data);
+    localStorage.setItem('rate',rate)
+    $('#usd').innerText=($('#kes').innerText/rate).toFixed(2)
+  })
+  .catch(error => {
+    console.warn('Failed to fetch data:', error);
+    let rate=2
+    $('#usd').innerText=($('#kes').innerText/localStorage.getItem('rate')).toFixed(2)
+
+    // Handle error gracefully, e.g., show an error message to the user
+  });/*
+async function fetch_currency()
+{
+    try
+    {
+    const response=await fetch(url)
+    
+    if(response.status==200)
+    {
+        const data=await response.json()
+        console.log('fetch success ',response)
+        return data
+    }
+    else{
+        not_successful(response)
+    }
+    }
+    catch(error)
+    {
+        console.log('error ',error)
+    }
+}
+function not_successful(response)
+{
+    console.log('not_successful ',response)
+}
+
+fetch_currency()
+.then(data=>
+{
+    console.log(data)
+})
+.catch(error=>
+{
+    console.log(error)
+})*/
+    </script>
+</body>
+</html>

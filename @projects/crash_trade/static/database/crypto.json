@@ -1,0 +1,18 @@
+{
+    "currency":{"name":"floatcoin","alias":"floc","symbol":"f¢","value":0.00},
+    "tokens":{
+        "duocent":{"name":"duocent","alias":"DC","flop":2.00},
+        "tripgem":{"name":"tripgem","alias":"TG","flop":3.00},
+        "pentime":{"name":"pentime","alias":"PT","flop":5.00},
+        "decadime":{"name":"decadime","alias":"DE","flop":10.00},
+        "teendime":{"name":"teendime","alias":"TE","flop":15.00},
+        "duodeca":{"name":"duodeca","alias":"DD","flop":20.00},
+        "quartile":{"name":"quartile","alias":"QT","flop":25.00},
+        "trideca":{"name":"trideca","alias":"TD","flop":30.00},
+        "thirfi":{"name":"thirfi","alias":"TF","flop":35.00},
+        "quadeca":{"name":"quadeca","alias":"QD","flop":40.00},
+        "fourve":{"name":"fourve","alias":"FV","flop":45.00},
+        "midile":{"name":"medin","alias":"MD","flop":50.00},
+        "sifve":{"name":"sifve","alias":"SF","flop":65.00}
+    }
+}
