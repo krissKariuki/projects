@@ -26,66 +26,6 @@ multiplier=0
 timestamp=''
 datapoints=[]
 
-class Datapoint:
-    def __init__(self,id,signal,timestamp,multiplier,coefficient,price,ema,velocity,acceleration,percentage):
-        self.id=id
-        self.signal=signal
-        self.timestamp=timestamp
-        self.multiplier=multiplier
-        self.coefficient=coefficient
-        self.price=price
-        self.ema=ema
-        self.velocity=velocity
-        self.acceleration=acceleration
-        self.percentage=percentage
-
-        self.output=self.output()
-
-    def output(self):
-        return{
-            'id':self.id,
-            'multiplier':self.multiplier,
-            'price':self.price,
-            'timestamp':self.timestamp,
-            'signal':self.signal,
-            'coefficient':self.coefficient,
-            'ema':self.ema,
-            'velocity':self.velocity,
-            'acceleration':self.acceleration,
-            'percentage':self.percentage
-        }
-
-dataFormat={
-    "tokens": {
-        "duocent": {
-            "name":"duocent","acronym":"DC","flop":2.00,"dataset":[]},
-        "tripgem": {
-            "name":"tripgem","acronym":"TG","flop":3.00,"dataset":[]},
-        "pentime": {
-            "name":"pentime","acronym":"PT","flop":5.00,"dataset":[]},
-        "decadime": {
-            "name":"decadime","acronym":"DE","flop":10.00,"dataset":[]},
-        "teendime": {
-            "name":"teendime","acronym":"TE","flop":15.00,"dataset":[]},
-        "duodeca": {
-            "name":"duodeca","acronym":"DD","flop":20.00,"dataset":[]},
-        "quartile": {
-            "name":"quartile","acronym":"QT","flop":25.00,"dataset":[]},
-        "trideca": {
-            "name":"trideca","acronym":"TD","flop":30.00,"dataset":[]},
-        "thirfi": {
-            "name":"thirfi","acronym":"TF","flop":35.00,"dataset":[]},
-        "quadeca": {
-            "name":"quadeca","acronym":"QD","flop":40.00,"dataset":[]},
-        "fourve": {
-            "name":"fourve","acronym":"FV","flop":45.00,"dataset":[]},
-        "midile": {
-            "name":"medin","acronym":"MD","flop":50.00,"dataset":[]},
-        "sifve": {
-            "name":"sifve","acronym":"SF","flop":65.00,"dataset":[]}
-    }
-}
-
 def delay_event(attr='xpath',value='',getMethod='click',triggerClick=False,timeOut=30) :
     methods={'id':By.ID,'class':By.CLASS_NAME,'xpath':By.XPATH}
     getBy={'locate':EC.presence_of_element_located((methods[attr],value)),'click':EC.element_to_be_clickable((methods[attr],value))}
